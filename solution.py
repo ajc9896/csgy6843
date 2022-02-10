@@ -12,11 +12,11 @@ def webServer(port=13331):
   #Fill in start
   serverSocket.listen(1)
   #Fill in end
-  print(f'The web server is up on port {port}')
+  # print(f'The web server is up on port {port}')
 
   while True:
     #Establish the connection
-    print('Ready to serve...')
+    # print('Ready to serve...')
     # exit()
 
     connectionSocket, addr = serverSocket.accept()#Fill in start      #Fill in end
@@ -24,14 +24,14 @@ def webServer(port=13331):
 
       try:
         message = connectionSocket.recv(1024) #Fill in start    #Fill in end
+
         
-        filename = message.split()[1]
+        filename = message.split()[1]      
         
         f = open(filename[1:])
         
         outputdata = f.read() #Fill in start     #Fill in end
 
-        print(outputdata)
         
         #Send one HTTP header line into socket.
         #Fill in start
