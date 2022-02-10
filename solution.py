@@ -8,26 +8,34 @@ import sys
 def webServer(port=13331):
   serverSocket = socket(AF_INET, SOCK_STREAM)
   #Prepare a server socket
-  serverSocket.bind(("", port))
+  serverSocket.bind(('127.0.0.1', port))
   #Fill in start
   serverSocket.listen(1)
   #Fill in end
+  print(f'The web server is up on port {port}')
 
   while True:
     #Establish the connection
-    #print('Ready to serve...')
+    print('Ready to serve...')
+    # exit()
+
     connectionSocket, addr = serverSocket.accept()#Fill in start      #Fill in end
     try:
 
       try:
-        message = 'helloworld.html' #Fill in start    #Fill in end
+        message = connectionSocket.recv(1024) #Fill in start    #Fill in end
+        
         filename = message.split()[1]
+        
         f = open(filename[1:])
-        outputdata = '200 OK' #Fill in start     #Fill in end
+        
+        outputdata = f.read() #Fill in start     #Fill in end
+
+        print(outputdata)
         
         #Send one HTTP header line into socket.
         #Fill in start
-
+        connectionSocket.send('\nHTTP/1.1 200 OK\n\n'.encode())
         #Fill in end
 
         #Send the content of the requested file to the client
@@ -39,13 +47,13 @@ def webServer(port=13331):
       except IOError:
         # Send response message for file not found (404)
         #Fill in start
-
+        connectionSocket.send("\nHTTP/1.1 404 Not Found\n\n".encode())
         #Fill in end
 
 
         #Close client socket
         #Fill in start
-
+        connectionSocket.close()
         #Fill in end
 
     except (ConnectionResetError, BrokenPipeError):
