@@ -38,7 +38,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send MAIL FROM command and handle server response.
     # Fill in start
 
-    mailFrom = "MAIL FROM: \r\n"
+    mailFrom = "MAIL FROM: <ac0590@yahoo.com>\r\n"
     clientSocket.send(mailFrom.encode())
     # recv2 = clientSocket.recv(1024)
 
