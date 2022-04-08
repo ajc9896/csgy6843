@@ -5,8 +5,7 @@ import struct
 import time
 import select
 import binascii
-# import numpy
-# import statistics
+import statistics
 # Should use stdev
 
 ICMP_ECHO_REQUEST = 8
@@ -144,13 +143,12 @@ def ping(host, timeout=1):
     stdev_var = sum((i - packet_avg) ** 2 for i in delays) / len(delays)
     print(stdev_var)
 
-    stdev = stdev_var ** 0.5
+    stdev = statistics.stdev(delays)
     print(stdev)
-
-
-        
+    
     #You should have the values of delay for each ping here; fill in calculation for packet_min, packet_avg, packet_max, and stdev
-    vars = [str(round(packet_min, 8)), str(round(packet_avg, 8)), str(round(packet_max, 8)),str(round(stdev), 8)]
+
+    vars = [str(round(packet_min, 8)), str(round(packet_avg, 8)), str(round(packet_max, 8)),str(round(stdev, 8))]
 
     return vars
 
