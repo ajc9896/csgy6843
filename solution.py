@@ -5,8 +5,8 @@ import struct
 import time
 import select
 import binascii
-import numpy
-import statistics
+# import numpy
+# import statistics
 # Should use stdev
 
 ICMP_ECHO_REQUEST = 8
