@@ -109,7 +109,7 @@ def get_route(hostname):
                 timeReceived = time.time()
                 timeLeft = timeLeft - howLongInSelect
 
-                rtt = startedSelect - timeReceived
+                rtt = str(startedSelect - timeReceived) + 'ms'
 
                 if timeLeft <= 0:
                     tracelist1.append("* * * Request timed out.")
@@ -128,7 +128,7 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #Fill in start
-                    print(hostname)
+                    dest = gethostbyname(hostname)
                     #Fill in end
                 except herror:   
                     #if the host does not provide a hostname
@@ -152,7 +152,7 @@ def get_route(hostname):
                     #You should add your responses to your lists here 
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
-                    tracelist1.append(destAddr)
+                    tracelist1.append(dest)
                     tracelist1.append(hostname)
                     #Fill in end
                 elif types == 0:
@@ -162,7 +162,7 @@ def get_route(hostname):
                     #You should add your responses to your lists here and return your list if your destination IP is met
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
-                    tracelist1.append(destAddr)
+                    tracelist1.append(dest)
                     tracelist1.append(hostname)
                     #Fill in end
                 else:
