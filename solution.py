@@ -133,7 +133,7 @@ def get_route(hostname):
                 except herror:   
                     #if the host does not provide a hostname
                     #Fill in start
-                    print('hostname not returnable')
+                    hostname = 'hostname not returnable'
                     #Fill in end
                 if types == 11:
                     bytes = struct.calcsize("d")
@@ -142,6 +142,8 @@ def get_route(hostname):
                     #You should add your responses to your lists here
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
+                    tracelist1.append(destAddr)
+                    tracelist1.append(hostname)
                     #Fill in end
                 elif types == 3:
                     bytes = struct.calcsize("d")
@@ -150,6 +152,8 @@ def get_route(hostname):
                     #You should add your responses to your lists here 
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
+                    tracelist1.append(destAddr)
+                    tracelist1.append(hostname)
                     #Fill in end
                 elif types == 0:
                     bytes = struct.calcsize("d")
@@ -158,11 +162,13 @@ def get_route(hostname):
                     #You should add your responses to your lists here and return your list if your destination IP is met
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
+                    tracelist1.append(destAddr)
+                    tracelist1.append(hostname)
                     #Fill in end
                 else:
                     #Fill in start
                     #If there is an exception/error to your if statements, you should append that to your list here
-                    tracelist2.append('error')
+                    hostname = 'error'
                     #Fill in end
                 break
             finally:
