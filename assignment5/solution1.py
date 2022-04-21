@@ -72,13 +72,11 @@ def get_route(hostname):
 
     tracelist1 = [] #This is your list to use when iterating through each trace 
     tracelist2 = [] #This is your list to contain all traces
-    destAddr = gethostbyname(hostname)
-    print(destAddr)
 
     for ttl in range(1,MAX_HOPS):
 
         for tries in range(TRIES):
-            
+            destAddr = gethostbyname(hostname)
 
             #Fill in start
 
@@ -91,6 +89,9 @@ def get_route(hostname):
             mySocket.setsockopt(IPPROTO_IP, IP_TTL, struct.pack('I', ttl))
             mySocket.settimeout(TIMEOUT)
 
+            print(destAddr)
+            exit()
+            
             try:
                 d = build_packet()
                 mySocket.sendto(d, (hostname, 0))
@@ -98,35 +99,22 @@ def get_route(hostname):
                 startedSelect = time.time()
                 whatReady = select.select([mySocket], [], [], timeLeft)
                 howLongInSelect = (time.time() - startedSelect)
-
-
                 if whatReady[0] == []: # Timeout
                     tracelist1.append("* * * Request timed out.")
-
                     #Fill in start
-
                     #You should add the list above to your all traces list
-                    tracelist2.append(tracelist1)
-
                     #Fill in end
-
                 recvPacket, addr = mySocket.recvfrom(1024)
                 timeReceived = time.time()
                 timeLeft = timeLeft - howLongInSelect
-
-                rtt = str(startedSelect - timeReceived)
-
                 if timeLeft <= 0:
                     tracelist1.append("* * * Request timed out.")
-
                     #Fill in start
                     #You should add the list above to your all traces list
-                    tracelist2.append(tracelist1)
+                    tracelist2.append(timeLeft)
                     #Fill in end
-
             except timeout:
                 continue
-
 
             else:
                 #Fill in start
@@ -134,26 +122,21 @@ def get_route(hostname):
                 icmpHeader = recvPacket[20:28]
                 types, code, mychecksum, packetID, sequence = struct.unpack("bbHHh", icmpHeader)
                 #Fill in end
-
                 try: #try to fetch the hostname
                     #Fill in start
-                    print(destAddr)
+                    fetch_hostname = mySocket.gethostname()
+                    print(fetch_hostname)
                     #Fill in end
-
                 except herror:   
-
                     #if the host does not provide a hostname
                     #Fill in start
-                    print('hostname not returnable')
+                    hostname = None
                     #Fill in end
-
                 if types == 11:
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
                     #You should add your responses to your lists here
-                    tracelist1.append(ttl)
-                    tracelist1.append(rtt + 'ms')
                     #Fill in end
                 elif types == 3:
                     bytes = struct.calcsize("d")
@@ -175,10 +158,6 @@ def get_route(hostname):
                 break
             finally:
                 mySocket.close()
-
-    print(tracelist2)
-    return tracelist2
-
 
 if __name__ == '__main__':
     get_route("google.co.il")
