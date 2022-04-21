@@ -1,8 +1,3 @@
-Skip to content
-ResultsCode
-Submitted Files for Python Programming: Traceroute
- solution.py
- Download
 from socket import *
 import os
 import sys
