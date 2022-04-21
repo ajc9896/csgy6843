@@ -1,3 +1,8 @@
+Skip to content
+ResultsCode
+Submitted Files for Python Programming: Traceroute
+ solution.py
+ Download
 from socket import *
 import os
 import sys
@@ -70,15 +75,15 @@ def get_route(hostname):
 
     timeLeft = TIMEOUT
 
-    tracelist1 = [] #This is your list to use when iterating through each trace
     
+    tracelist2 = [] #This is your list to contain all traces
     destAddr = gethostbyname(hostname)
 
     for ttl in range(1,MAX_HOPS):
 
         for tries in range(TRIES):
 
-            tracelist2 = [] #This is your list to contain all traces
+            tracelist1 = [] #This is your list to use when iterating through each trace
 
             #Fill in start
 
@@ -109,7 +114,7 @@ def get_route(hostname):
                 timeReceived = time.time()
                 timeLeft = timeLeft - howLongInSelect
 
-                rtt = str(startedSelect - timeReceived) + 'ms'
+                rtt = startedSelect - timeReceived
 
                 if timeLeft <= 0:
                     tracelist1.append("* * * Request timed out.")
@@ -128,12 +133,12 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #Fill in start
-                    dest = gethostbyaddr(destAddr)
+                    print(hostname)
                     #Fill in end
                 except herror:   
                     #if the host does not provide a hostname
                     #Fill in start
-                    no_hostname = 'hostname not returnable'
+                    print('hostname not returnable')
                     #Fill in end
                 if types == 11:
                     bytes = struct.calcsize("d")
@@ -142,9 +147,6 @@ def get_route(hostname):
                     #You should add your responses to your lists here
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
-                    tracelist1.append(destAddr)
-                    tracelist1.append(no_hostname)
-                    tracelist2.append(tracelist1)
                     #Fill in end
                 elif types == 3:
                     bytes = struct.calcsize("d")
@@ -153,9 +155,6 @@ def get_route(hostname):
                     #You should add your responses to your lists here 
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
-                    tracelist1.append(dest)
-                    tracelist1.append(hostname)
-                    tracelist2.append(tracelist1)
                     #Fill in end
                 elif types == 0:
                     bytes = struct.calcsize("d")
@@ -164,18 +163,11 @@ def get_route(hostname):
                     #You should add your responses to your lists here and return your list if your destination IP is met
                     tracelist1.append(ttl)
                     tracelist1.append(rtt)
-                    tracelist1.append(dest)
-                    tracelist1.append(hostname)
-                    tracelist2.append(tracelist1)
                     #Fill in end
                 else:
                     #Fill in start
                     #If there is an exception/error to your if statements, you should append that to your list here
-                    tracelist1.append(ttl)
-                    tracelist1.append(rtt)
-                    tracelist1.append(dest)
-                    tracelist1.append('error')
-                    tracelist2.append(tracelist1)
+                    tracelist2.append('error')
                     #Fill in end
                 break
             finally:
