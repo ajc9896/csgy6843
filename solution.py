@@ -139,7 +139,7 @@ def get_route(hostname):
                 except herror:   
                     #if the host does not provide a hostname
                     #Fill in start
-                    print('hostname not returnable')
+                    hop_hostname = 'hostname not returnable'
                     #Fill in end
                 if types == 11:
                     bytes = struct.calcsize("d")
@@ -174,8 +174,8 @@ def get_route(hostname):
                     tracelist1.append(str(ttl))
                     tracelist1.append(rtt)
                     tracelist1.append(destAddr)
-                    tracelist1.append(hostname)
-                    print(tracelist1)
+                    tracelist1.append(hop_hostname)
+                    return(tracelist1)
                     #Fill in end
                 else:
                     #Fill in start
