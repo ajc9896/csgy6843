@@ -149,8 +149,8 @@ def get_route(hostname):
                     print(types)
                     tracelist1.append(str(ttl))
                     tracelist1.append(rtt)
-                    tracelist1.append(addr)
-                    tracelist1.append(hop_hostname)
+                    tracelist1.append(addr[0])
+                    tracelist1.append(hop_hostname[0])
                     print(tracelist1)
                     #Fill in end
                 elif types == 3:
@@ -161,8 +161,8 @@ def get_route(hostname):
                     print(types) 
                     tracelist1.append(str(ttl))
                     tracelist1.append(rtt)
-                    tracelist1.append(addr)
-                    tracelist1.append(hop_hostname)
+                    tracelist1.append(addr[0])
+                    tracelist1.append(hop_hostname[0])
                     print(tracelist1)
                     #Fill in end
                 elif types == 0:
